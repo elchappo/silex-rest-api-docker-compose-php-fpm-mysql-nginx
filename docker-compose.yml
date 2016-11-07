@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        container_name: nginx
+        ports:
+            - "8080:80"
+        volumes:
+            - ./api:/source
+            - ./docker/nginx:/etc/nginx/conf.d
+        links:
+            - php
+        networks:
+            - dev_network
+    db:
+        image: mysql
+        container_name: db
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./api/resources/sql:/import
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_USER: api
+            MYSQL_PASSWORD: 123456
+            MYSQL_DATABASE: api
+        networks:
+            - dev_network
+    php:
+        image: petrepatrasc/docker-php-fpm:5.6
+        container_name: php
+        volumes:
+            - ./api:/source
+        working_dir: /source
+        links:
+            - db
+        networks:
+            - dev_network
+        environment:
+            - PHP_POOL_LISTEN_HOST=0.0.0.0
+
+networks:
+    dev_network:
+        driver: bridge
