@@ -13,10 +13,11 @@
 	}],
 	"require": {
 		"silex/silex": "~2.0",
-		"monolog/monolog": "~1.11",
+		"monolog/monolog": "~1.1",
 		"doctrine/dbal": "~2.5",
-		"nesbot/Carbon": "~1.21",
-		"euskadi31/cors-service-provider": "~1.0"
+		"nesbot/Carbon": "~1.2",
+		"euskadi31/cors-service-provider": "~1.0",
+		"gecko-packages/gecko-silex-config-service": "^2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.1.4",

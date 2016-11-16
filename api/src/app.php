@@ -1,6 +1,12 @@
 <?php
 
+date_default_timezone_set('Europe/London');
+
 require_once __DIR__ . '/../vendor/autoload.php';
+
+use Api\RoutesLoader;
+use Api\Providers\ServicesProvider;
+use Api\Providers\RoutesProvider;
 
 use Silex\Application;
 use Silex\Provider\HttpCacheServiceProvider;
@@ -10,48 +16,55 @@ use Silex\Provider\ServiceControllerServiceProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Euskadi31\Silex\Provider\CorsServiceProvider;
-use Api\RoutesLoader;
-use Api\Providers\ServicesProvider;
-use Api\Providers\RoutesProvider;
 use Carbon\Carbon;
+use Euskadi31\Silex\Provider\CorsServiceProvider;
+use GeckoPackages\Silex\Services\Config\ConfigServiceProvider;
 
 $app = new Silex\Application();
-
-date_default_timezone_set('Europe/London');
-
-$app['log.level'] = Monolog\Logger::ERROR;
-
-$app['db.options'] = array(
-    'driver' => 'pdo_mysql',
-    'user' => 'api',
-    'password' => '123456',
-    'dbname' => 'api',
-    'host' => 'db',
-);
 
 $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $data = json_decode($request->getContent(), true);
-        $request->request->replace(is_array($data) ? $data : array());
+        $request->request->replace(is_array($data) ? $data : []);
     }
 });
+
+$app->register(
+        new ConfigServiceProvider(),
+        [
+            'config.dir' => __DIR__.'/../resources/config',
+            'config.format' => '%key%.%env%.json',
+            'config.env' => getenv('APP_ENV')
+        ]
+);
 
 $app->register(new CorsServiceProvider());
 
 $app->register(new ServiceControllerServiceProvider());
 
-$app->register(new DoctrineServiceProvider(), array(
-    'db.options' => $app['db.options']
-));
+$app->register(
+    new DoctrineServiceProvider(), 
+    [
+        'db.options' => $app['config']->get('database')
+    ]
+);
 
-$app->register(new HttpCacheServiceProvider(), array('http_cache.cache_dir' => '../var/cache',));
+$app->register(
+    new HttpCacheServiceProvider(), 
+    [
+        'http_cache.cache_dir' => '../var/cache'
+    ]
+);
 
-$app->register(new MonologServiceProvider(), array(
-    'monolog.logfile' => '../var/logs/' . Carbon::now('Europe/London')->format('Y-m-d') . '.log',
-    'monolog.level' => $app['log.level'],
-    'monolog.name' => 'application'
-));
+$app->register(
+    new MonologServiceProvider(), 
+    [
+        'monolog.logfile' => 
+        sprintf('../var/logs/%s.log', Carbon::now('Europe/London')->format('Y-m-d')),
+        'monolog.level' => Monolog\Logger::ERROR,
+        'monolog.name' => 'application'
+    ]
+);
 
 $app->register(new ServicesProvider(), []);
 

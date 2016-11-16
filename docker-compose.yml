@@ -24,7 +24,7 @@ services:
             MYSQL_ROOT_PASSWORD: secret
             MYSQL_USER: api
             MYSQL_PASSWORD: 123456
-            MYSQL_DATABASE: api
+            MYSQL_DATABASE: api_dev
         networks:
             - dev_network
     php:
@@ -39,6 +39,8 @@ services:
             - dev_network
         environment:
             - PHP_POOL_LISTEN_HOST=0.0.0.0
+            - PHP_CONF_DISPLAY_ERRORS=on 
+            - PHP_CONF_ERROR_REPORTING=1 
 
 networks:
     dev_network:

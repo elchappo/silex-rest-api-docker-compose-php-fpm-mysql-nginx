@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "865606e8c8a6dd18262bf26aa5d34e1e",
-    "content-hash": "4ffdf62a7200dc2d1a90cd3ad182e935",
+    "hash": "0822710cc6f487c92508ccc1d9225fc6",
+    "content-hash": "6944e76a92b1b053f881e68783719866",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -517,6 +517,52 @@
             "time": "2016-06-15 09:40:15"
         },
         {
+            "name": "gecko-packages/gecko-silex-config-service",
+            "version": "v2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GeckoPackages/GeckoSilexConfigService.git",
+                "reference": "a3c9f127b50782e71f90ab8a1705bec8d8f954a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GeckoPackages/GeckoSilexConfigService/zipball/a3c9f127b50782e71f90ab8a1705bec8d8f954a3",
+                "reference": "a3c9f127b50782e71f90ab8a1705bec8d8f954a3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "silex/silex": "v2.*",
+                "symfony/filesystem": "~2.8|3.0.*"
+            },
+            "require-dev": {
+                "gecko-packages/gecko-memcache-mock": "^2.0",
+                "symfony/yaml": "~2.8|3.0.*"
+            },
+            "suggest": {
+                "symfony/yaml": "For using Yaml formatted configuration files (~2.8|3.0.*)."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GeckoPackages\\Silex\\Services\\Config\\": "src\\Config"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Configuration service for Silex.",
+            "homepage": "https://github.com/GeckoPackages",
+            "keywords": [
+                "config",
+                "configuration",
+                "silex",
+                "yaml"
+            ],
+            "time": "2016-05-19 07:29:10"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.21.0",
             "source": {
@@ -935,6 +981,55 @@
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
             "time": "2016-07-19 10:45:57"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v3.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "b2da5009d9bacbd91d83486aa1f44c793a8c380d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/b2da5009d9bacbd91d83486aa1f44c793a8c380d",
+                "reference": "b2da5009d9bacbd91d83486aa1f44c793a8c380d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-07-20 05:43:46"
         },
         {
             "name": "symfony/http-foundation",
